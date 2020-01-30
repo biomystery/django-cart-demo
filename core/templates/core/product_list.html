@@ -1,0 +1,10 @@
+{% extends "core/core_base.html"%}
+
+{% block body_block%}
+<h1>Welcome to a list of all the products</h1>
+  <ol>
+    {% for product in products %}
+    <h2><li><a href="{{product.id}}">{{product.name}}</a></li> </h2>
+    {% endfor %}
+  </ol>
+{% endblock %} 

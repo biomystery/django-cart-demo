@@ -1,0 +1,12 @@
+{% extends "core/core_base.html"%}
+
+{% block body_block%}
+<h1>Delete {{userprofile.user}}?</h1>
+<form  method="post">
+  <!-- necessary syntax when creating a list -->
+  {% csrf_token%}
+  <!-- button -->
+  <input type="submit" class='btn btn-danger' value="Delete">
+  <a href="{% url 'core:detail' pk=userprofile.pk %}">Cancel</a>
+</form>
+{% endblock %}

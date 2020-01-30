@@ -1,0 +1,14 @@
+{% extends "core/core_base.html"%}
+
+{% block body_block%}
+<div class="jumbotron">
+  <h1>Welcome to the category detail page</h1>
+  <h2>Category details: </h2>
+  <p>Category Name: {{category_detail.name}}</p>
+  <p>Description: {{category_detail.description}}</p>
+
+</div>
+<div class="container">
+  <p><a class='btn btn-warning' href="{% url 'core:update' pk=category_detail.pk %}">Update</a></p>
+</div>
+{% endblock %}

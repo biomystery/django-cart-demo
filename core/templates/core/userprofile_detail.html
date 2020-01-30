@@ -1,0 +1,15 @@
+{% extends "core/core_base.html"%}
+
+{% block body_block%}
+<div class="jumbotron">
+  <h1>Welcome to the User Profile detail page</h1>
+  <h2>Profile details: </h2>
+  <p>User Name: {{userprofile_detail.user}}</p>
+  <p>Phone Number: {{userprofile_detail.phone}}</p>
+
+</div>
+<div class="container">
+  <p><a class='btn btn-warning' href="{% url 'core:update' pk=userprofile_detail.pk %}">Update</a></p>
+
+</div>
+{% endblock %}
