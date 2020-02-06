@@ -3,8 +3,8 @@
 {% block body_block%}
 <h1>Welcome to a list of all the categories</h1>
   <ol>
-    {% for category in categories %}
-    <h2><li><a href="{{category.id}}">{{category.name}}</a></li> </h2>
+    {% for product in products %}
+    <h2><li><a href="{{product.id}}">{{product.category}}</a></li> </h2>
     {% endfor %}
   </ol>
 {% endblock %}

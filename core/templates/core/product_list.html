@@ -1,10 +1,40 @@
 {% extends "core/core_base.html"%}
-
+{% load staticfiles%}
 {% block body_block%}
-<h1>Welcome to a list of all the products</h1>
-  <ol>
-    {% for product in products %}
-    <h2><li><a href="{{product.id}}">{{product.name}}</a></li> </h2>
-    {% endfor %}
-  </ol>
-{% endblock %} 
+  <form method="get">
+    <div>
+      <table class="table table-bordered" style="width:100%">
+        <thead>
+          <th scope="col">Product Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Category</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <ul>
+                {% for product in products %}
+                  <p>{{product.name}} </p>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for product in products %}
+                  <p>{{product.price_ht}} </p>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for product in products %}
+                  <p>{{product.category}} </p>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+  </form>
+{% endblock %}

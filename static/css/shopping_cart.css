@@ -1,18 +1,17 @@
-ul {
+nav ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow: hidden;
+  color: blue;
   background-color: #333;
 }
-
 li {
   float: left;
 }
 
 li a {
-  display: block;
+  display: grid;
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -21,16 +20,28 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #111;
+  background-color: none;
 }
 nav {
   margin: 0;
 }
 body {
   margin: 0px;
+  background-color: none;
 }
 img {
   height: 300px;
   width: 70%;
   margin: auto;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
