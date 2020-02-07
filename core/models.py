@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=50)
     price_ht = models.FloatField()
-    category = models.ForeignKey("core.Category", on_delete=models.CASCADE)
+    category = models.ForeignKey("core.Category", on_delete=models.CASCADE, related_name='products')
     TVA_AMOUNT = 0.0725
     def price_ttc(self):
         return self.price_ht + self.TVA_AMOUNT

@@ -1,10 +1,16 @@
 {% extends "core/core_base.html"%}
 
 {% block body_block%}
-<h1>Welcome to a list of all the categories</h1>
-  <ol>
+<h1>Welcome </h1>
+<ul>
+  {% for category in categories %}
+    <h3>{{category.name}}</h3>
+    <h3>{{category.products.name}</h3>
+  {% endfor %}
+</ul>
+  <ul>
     {% for product in products %}
-    <h2><li><a href="{{product.id}}">{{product.category}}</a></li> </h2>
+      <h3>{{product.name}}</h3>
     {% endfor %}
-  </ol>
+  </ul>
 {% endblock %}

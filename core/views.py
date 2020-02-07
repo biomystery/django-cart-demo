@@ -43,7 +43,7 @@ class CategoryUpdateView(UpdateView):
     model = models.Category
 class CategoryDeleteView(DeleteView):
     model = models.Category
-    success_url = reverse_lazy("core:list")
+    success_url = reverse_lazy("core:category_list")
 # UserProfile views
 class UserProfileDetailView(DetailView):
     context_object_name = 'userprofile_detail'
@@ -66,7 +66,7 @@ class UserProfileUpdateView(UpdateView):
 
 class UserProfileDeleteView(DeleteView):
     model = models.UserProfile
-    success_url = reverse_lazy("core:list")
+    success_url = reverse_lazy("core:profile_list")
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -92,3 +92,10 @@ def register(request):
                             {'user_form':user_form,
                                 'profile_form':profile_form,
                                 'registered':registered})
+def get_products(request):
+     products = category.products.all()
+     context = {
+       'title': category.name,
+       'products': products,
+     }
+     return render(request,'core/category_list.html',context)
