@@ -80,24 +80,28 @@
             </td>
             <td>
               <ul>
-                <input type="submit" name="" value="Add to cart">
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
               </ul>
               <ul>
-                <input type="submit" name="" value="Add to cart">
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
               </ul>
               <ul>
-                <input type="submit" name="" value="Add to cart">
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
               </ul>
               <ul>
-                <input type="submit" name="" value="Add to cart">
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
               </ul>
               <ul>
-                <input type="submit" name="" value="Add to cart">
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
+              </ul>
+              <ul>
+                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
               </ul>
             </td>
           </tr>
       </tbody>
     </table>
+    <a href="{% url 'core:order_summary' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Checkout</a>
     </div>
   </form>
 {% endblock %}

@@ -34,6 +34,13 @@ class CategoryDetailView(DetailView):
 class CategoryListView(ListView):
     context_object_name = 'categories'
     model = models.Category
+    def get_products(request):
+         products = category.products.all()
+         context = {
+           'title': category.name,
+           'products': products,
+         }
+         return render(request,'core/category_list.html',context)
     template_name = "core/category_list.html"
 class CategoryCreateView(CreateView):
     fields = ('name', 'description')
@@ -92,10 +99,19 @@ def register(request):
                             {'user_form':user_form,
                                 'profile_form':profile_form,
                                 'registered':registered})
-def get_products(request):
-     products = category.products.all()
-     context = {
-       'title': category.name,
-       'products': products,
-     }
-     return render(request,'core/category_list.html',context)
+def add_to_cart(request, product_id):
+    product = Product.objects.get(id=product_id)
+    cart_item,created = OrderItem.objects.get_or_create(product = product)
+    cart_order,created = Order.objects.get_or_create(owner=user, is_ordered=False)
+    cart_order.items.add(cart_item)
+    cart_order.quantity += 1
+    cart_order.save()
+    messages.info(request, "item has been added")
+    return redirect(reverse_lazy("core:list"))
+
+def order_details(request, **kwargs):
+    existing_order = get_user_pending_order(request)
+    context = {
+        'order': existing_order
+    }
+    return render(request, 'core/order_summary.html', context)

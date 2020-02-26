@@ -2,15 +2,40 @@
 
 {% block body_block%}
 <h1>Welcome </h1>
-<ul>
-  {% for category in categories %}
-    <h3>{{category.name}}</h3>
-    <h3>{{category.products.name}</h3>
-  {% endfor %}
-</ul>
-  <ul>
-    {% for product in products %}
-      <h3>{{product.name}}</h3>
-    {% endfor %}
-  </ul>
+<div class="container">
+  <table class="table table-bordered" style="width:100%">
+    <thead>
+      {% for category in categories %}
+      <th> {{category.name}}</th>
+      {% endfor %}
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            {% for category in categories %}
+            <p>{{category.description}}</p>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <ul>
+            {% for category in categories %}
+            <p>{{category.description}}</p>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>
+          <ul>
+            {% for category in categories %}
+            <p>{{category.description}}</p>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
 {% endblock %}

@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^create/$', views.UserProfileCreateView.as_view(), name='profile_create'),
     url(r'^update/(?P<pk>\d+)/$', views.UserProfileUpdateView.as_view(), name='profile_update'),
     url(r'^delete/(?P<pk>\d+)/$', views.UserProfileDeleteView.as_view(), name='profile_delete'),
+    url(r'^added/(?P<pk>\d+)/$', views.add_to_cart, name="added"),
+    url(r'^order_summary/$', views.order_details, name="order_summary"),
 
 ]

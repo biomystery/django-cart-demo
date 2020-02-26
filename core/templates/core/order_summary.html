@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{%block body_block%}
+<div class="jumbotron">
+  <ul>
+    {% for item in order.number_of_items %}
+      <p>{{item.product.name}}</p>
+      <p>{{item.product.price_ht}}</p>
+    {% endfor %}
+  </ul>
+  <ul>
+    <h3>Total: $ {{order.total_price}}</h3>
+  </ul>
+
+</div>
+{% endblock %}

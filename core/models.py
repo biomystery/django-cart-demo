@@ -32,3 +32,28 @@ class Category(models.Model):
         return self.name
     def get_absolute_url(self):
         return reverse("category_detail", kwargs={"pk": self.pk})
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    is_ordered = models.BooleanField(default=False)
+    date_added = models.DateTimeField(auto_now=True)
+    date_ordered = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.product.name
+
+class Order(models.Model):
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    items = models.ManyToManyField(OrderItem)
+    is_ordered = models.BooleanField(default=False)
+    date_ordered = models.DateTimeField(auto_now=True)
+
+    def number_of_items(self):
+        return self.items.all()
+
+    def total_price(self):
+        return sum([items.product.price_ht for item in self.items.all()])
+
+    def __str__(self):
+        message = "Cart Owner: {}"
+        return message.format(self.owner)
