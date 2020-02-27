@@ -35,6 +35,7 @@
               </ul>
             </td>
             <td>
+              {% for product in products %}
               <ul>
                 <select  name="amount">
                   <option value="total1">1</option>
@@ -42,61 +43,14 @@
                   <option value="total3">3</option>
                 </select>
               </ul>
-              <ul>
-                <select  name="amount">
-                  <option value="total1">1</option>
-                  <option value="total2">2</option>
-                  <option value="total3">3</option>
-                </select>
-              </ul>
-              <ul>
-                <select  name="amount">
-                  <option value="total1">1</option>
-                  <option value="total2">2</option>
-                  <option value="total3">3</option>
-                </select>
-              </ul>
-              <ul>
-                <select  name="amount">
-                  <option value="total1">1</option>
-                  <option value="total2">2</option>
-                  <option value="total3">3</option>
-                </select>
-              </ul>
-              <ul>
-                <select  name="amount">
-                  <option value="total1">1</option>
-                  <option value="total2">2</option>
-                  <option value="total3">3</option>
-                </select>
-              </ul>
-              <ul>
-                <select  name="amount">
-                  <option value="total1">1</option>
-                  <option value="total2">2</option>
-                  <option value="total3">3</option>
-                </select>
-              </ul>
+              {% endfor %}
             </td>
             <td>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
-              <ul>
-                <a href="{% url 'core:added' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
-              </ul>
+                {% for product in products %}
+                  <ul>
+                    <a href="{% url 'core:added' product.pk %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
+                  </ul>
+                {% endfor %}
             </td>
           </tr>
       </tbody>

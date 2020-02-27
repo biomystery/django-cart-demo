@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
+from django.contrib.auth import User
 from django.urls import reverse_lazy
 from django.views.generic import (View, TemplateView, DetailView, ListView,
                                     CreateView, UpdateView, DeleteView)
@@ -99,8 +100,10 @@ def register(request):
                             {'user_form':user_form,
                                 'profile_form':profile_form,
                                 'registered':registered})
-def add_to_cart(request, product_id):
-    product = Product.objects.get(id=product_id)
+
+def add_to_cart(request, **kwargs):
+    #user_profile = get_object_or_404(UserProfile, user=request.user)
+    product = Product.objects.filter(id=kwargs.get('item_id', "")).first()
     cart_item,created = OrderItem.objects.get_or_create(product = product)
     cart_order,created = Order.objects.get_or_create(owner=user, is_ordered=False)
     cart_order.items.add(cart_item)

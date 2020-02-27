@@ -45,3 +45,7 @@ th, td {
   padding: 8px;
 }
 tr:nth-child(even) {background-color: #f2f2f2;}
+
+td ul a button{
+  margin-bottom: 2px;
+}
