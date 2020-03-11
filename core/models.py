@@ -38,6 +38,7 @@ class OrderItem(models.Model):
     is_ordered = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now=True)
     date_ordered = models.DateTimeField(null=True)
+    quantity = models.PositiveIntegerField(null=True)
 
     def __str__(self):
         return self.product.name

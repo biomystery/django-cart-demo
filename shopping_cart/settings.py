@@ -124,3 +124,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     static_dir,
 ]
+LOGIN_URL = '/core/user_login'

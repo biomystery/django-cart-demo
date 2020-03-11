@@ -1,9 +1,12 @@
-from django.shortcuts import render,get_object_or_404
-from django.contrib.auth import User
-from django.urls import reverse_lazy
+from django.shortcuts import render,get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.views.generic import (View, TemplateView, DetailView, ListView,
                                     CreateView, UpdateView, DeleteView)
-from .  import models
+
+from core.models import Product, OrderItem, Order, UserProfile, Category, UserProfile
 from core.forms import UserForm, UserProfileForm
 # Create your views here.
 class IndexView(TemplateView):
@@ -11,30 +14,30 @@ class IndexView(TemplateView):
 #Product views
 class ProductDetailView(DetailView):
     context_object_name = 'product_detail'
-    model = models.Product
+    model = Product
     template_name = "core/product_detail.html"
 class ProductListView(ListView):
     context_object_name = 'products'
-    model = models.Product
+    model = Product
     template_name = "core/product_list.html"
 class ProductCreateView(CreateView):
     fields = ('name', 'price_ht', 'category')
-    model = models.Product
+    model = Product
 
 class ProductUpdateView(UpdateView):
     fields = ('name', 'price_ht')
-    model = models.Product
+    model = Product
 class ProductDeleteView(DeleteView):
-    model = models.Product
+    model = Product
     success_url = reverse_lazy("core:list")
 # Product Categories views
 class CategoryDetailView(DetailView):
     context_object_name = 'category_detail'
-    model = models.Category
+    model = Category
     template_name = "core/category_detail.html"
 class CategoryListView(ListView):
     context_object_name = 'categories'
-    model = models.Category
+    model = Category
     def get_products(request):
          products = category.products.all()
          context = {
@@ -45,35 +48,35 @@ class CategoryListView(ListView):
     template_name = "core/category_list.html"
 class CategoryCreateView(CreateView):
     fields = ('name', 'description')
-    model = models.Category
+    model = Category
 class CategoryUpdateView(UpdateView):
     fields = ('name', 'description')
-    model = models.Category
+    model = Category
 class CategoryDeleteView(DeleteView):
-    model = models.Category
+    model = Category
     success_url = reverse_lazy("core:category_list")
 # UserProfile views
 class UserProfileDetailView(DetailView):
     context_object_name = 'userprofile_detail'
-    model = models.UserProfile
+    model = UserProfile
     template_name = "core/userprofile_detail.html"
 
 class UserProfileListView(ListView):
     context_object_name = 'profiles'
-    model = models.UserProfile
+    model = UserProfile
     template_name = "core/userprofile_list.html"
 
 class UserProfileCreateView(CreateView):
     fields = ('user', 'portfolio_site')
-    model = models.UserProfile
+    model = UserProfile
 
 class UserProfileUpdateView(UpdateView):
     fields = ('user', 'portfolio_site')
-    model = models.UserProfile
+    model = UserProfile
 
 
 class UserProfileDeleteView(DeleteView):
-    model = models.UserProfile
+    model = UserProfile
     success_url = reverse_lazy("core:profile_list")
 def register(request):
     registered = False
@@ -101,17 +104,48 @@ def register(request):
                                 'profile_form':profile_form,
                                 'registered':registered})
 
-def add_to_cart(request, **kwargs):
-    #user_profile = get_object_or_404(UserProfile, user=request.user)
-    product = Product.objects.filter(id=kwargs.get('item_id', "")).first()
-    cart_item,created = OrderItem.objects.get_or_create(product = product)
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Account Not Active")
+        else:
+            print("Someone tried to login and failed!")
+            print("Username: {} and Password: {}".format(username, password))
+            return HttpResponse("Invalid login details entered!")
+    else:
+        return render(request, 'core/login.html', {})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
+def get_user_pending_order(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    order = Order.objects.filter(owner=user_profile, is_ordered=False)
+    if order.exists():
+        return order[0]
+    return 0
+@login_required
+def add_to_cart(request, pk):
+    cart_profile = get_object_or_404(UserProfile, user=request.user)
+    cart_product = get_object_or_404(Product, pk=pk)
+    cart_item,created = OrderItem.objects.get_or_create(product=cart_product)
     cart_order,created = Order.objects.get_or_create(owner=user, is_ordered=False)
+    amount = OrderItem.objects.get_or_create(quantity = quantity)
     cart_order.items.add(cart_item)
     cart_order.quantity += 1
     cart_order.save()
     messages.info(request, "item has been added")
     return redirect(reverse_lazy("core:list"))
-
+@login_required
 def order_details(request, **kwargs):
     existing_order = get_user_pending_order(request)
     context = {

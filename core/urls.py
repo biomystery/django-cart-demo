@@ -15,12 +15,14 @@ urlpatterns = [
     url(r'^create/$', views.CategoryCreateView.as_view(), name='create'),
     url(r'^update/(?P<pk>\d+)/$', views.CategoryUpdateView.as_view(), name='update'),
     url(r'^delete/(?P<pk>\d+)/$', views.CategoryDeleteView.as_view(), name='delete'),
-    #url(r'^$', views.UserProfileListView.as_view(), name='profile_list'),
+    url(r'^$', views.UserProfileListView.as_view(), name='profile_list'),
     url(r'^(?P<pk>\d+)/$', views.UserProfileDetailView.as_view(), name='profile_detail'),
     url(r'^create/$', views.UserProfileCreateView.as_view(), name='profile_create'),
     url(r'^update/(?P<pk>\d+)/$', views.UserProfileUpdateView.as_view(), name='profile_update'),
     url(r'^delete/(?P<pk>\d+)/$', views.UserProfileDeleteView.as_view(), name='profile_delete'),
     url(r'^added/(?P<pk>\d+)/$', views.add_to_cart, name="added"),
     url(r'^order_summary/$', views.order_details, name="order_summary"),
+    url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^user_login/$', views.user_login, name='user_login'),
 
 ]
