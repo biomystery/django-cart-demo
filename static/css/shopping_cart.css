@@ -29,9 +29,10 @@ body {
   margin: 0px;
   background-color: none;
 }
-img {
+ img {
   height: 300px;
-  width: 70%;
+  width: 90%;
+  padding: 25px;
   margin: auto;
 }
 

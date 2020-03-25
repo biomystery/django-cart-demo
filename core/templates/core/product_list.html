@@ -46,11 +46,13 @@
               {% endfor %}
             </td>
             <td>
+              {% if request.user.is_authenticated %}
                 {% for product in products %}
                   <ul>
-                    <a href="{% url 'core:added' product.pk %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
+                    <a href="{% url 'core:added' pk=product.pk %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add to cart</a>
                   </ul>
                 {% endfor %}
+              {% endif %}
             </td>
           </tr>
       </tbody>

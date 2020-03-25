@@ -138,7 +138,7 @@ def add_to_cart(request, pk):
     cart_profile = get_object_or_404(UserProfile, user=request.user)
     cart_product = get_object_or_404(Product, pk=pk)
     cart_item,created = OrderItem.objects.get_or_create(product=cart_product)
-    cart_order,created = Order.objects.get_or_create(owner=user, is_ordered=False)
+    cart_order,created = Order.objects.get_or_create(owner=cart_profile, items=cart_product)
     amount = OrderItem.objects.get_or_create(quantity = quantity)
     cart_order.items.add(cart_item)
     cart_order.quantity += 1
